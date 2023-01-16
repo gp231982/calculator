@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lato:wght@400;700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="main.js"></script>
+    <title>Kalkulator walut</title>
+  </head>
+  <body>
+    <form class="form" action="">
+      <fieldset class="form__fieldset">
+        <legend><h2 class="form__header">Kalkulator walut</h2></legend>
+        <h3>Wymagana pola zazanczone są z "*"</h3>
+        <ul class="form__ul">
+          <li>
+            <label for="money"
+              ><span class="form__labelText">Wpisz kwotę*</span
+              ><input
+                class="js-currency__input form__field"
+                value=""
+                id="money"
+                type="number"
+                min="1"
+                step="1"
+                required
+                autofocus
+            /></label>
+          </li>
+          <li>
+            <label for="currency"
+              ><span class="form__labelText">Przelicz z:*</span>
+              <select
+                class="form__field form__field--select js-form__field--currencyFrom"
+                required
+                name="waluta"
+                id="currency"
+              >
+                <option value="">--Wybierz opcję--</option>
+                <option value="PLN">Polski złoty: PLN</option>
+                <option value="USD">Dolar amerykański: USD</option>
+                <option value="EUR">Euro: EUR</option>
+                <option value="GBP">Funt brytyjski: GBP</option>
+                <option value="CHF">Frank Szwarjcarski: CHF</option>
+              </select>
+            </label>
+          </li>
+
+          <li>
+            <label for="currency"
+              ><span class="form__labelText">Przelicz na:*</span>
+              <select
+                class="form__field form__field--select js-form__field--currencyTo"
+                name="waluta"
+                id="currency"
+                required
+              >
+                <option value="">--Wybierz opcję--</option>
+                <option value="PLN">Polski złoty: PLN</option>
+                <option value="USD">Dolar amerykański: USD</option>
+                <option value="EUR">Euro: EUR</option>
+                <option value="GBP">Funt brytyjski: GBP</option>
+                <option value="CHF">Frank Szwarjcarski: CHF</option>
+              </select>
+            </label>
+          </li>
+
+          <li>
+            <label for="currencyRatio"
+              ><span class="form__labelText"
+                >Wybierz aktualny kurs (z tabeli lub wpisz )*</span
+              ><input
+                class="form__field js-form__field--currencyRatio"
+                id="currencyRatio"
+                type="number"
+                value=""
+                step="0.0001"
+                required
+                min="0.0001"
+                placeholder="Wpisz lub wybierz kurs z tabeli"
+            /></label>
+          </li>
+        </ul>
+        <input class="form__calculationButton js-form__calculationButton" type="submit" value="Oblicz" />
+        <p class="form__result js-form__result"></p>
+        <button type="reset" href="#" class="form__reset js-form__reset">Reset</button>
+      </fieldset>
+    </form>
+    <table>
+      <caption class="table__caption">
+        Kursy rynkowe walut (kliknij na komórkę Kursu)
+      </caption>
+      <tr>
+        <th class="table__header">Para</th>
+        <th class="table__header">Kurs</th>
+        <th class="table__header">Para</th>
+        <th class="table__header">Kurs</th>
+        <th class="table__header">Para</th>
+        <th class="table__header">Kurs</th>
+        <th class="table__header">Para</th>
+        <th class="table__header">Kurs</th>
+      </tr>
+      <tr>
+        <td class="table__td">EUR/PLN</td>
+        <td class="table__td table__td--EURPLN">4.6797</td>
+        <td class="table__td">USD/PLN</td>
+        <td class="table__td table__td--USDPLN">4.4521</td>
+        <td class="table__td">GBP/PLN</td>
+        <td class="table__td table__td--GBPPLN">5.2964</td>
+        <td class="table__td">CHF/PLN</td>
+        <td class="table__td table__td--CHFPLN">4.7515</td>
+      </tr>
+      <tr>
+        <td class="table__td">EUR/USD</td>
+        <td class="table__td table__td--EURUSD">1.0521</td>
+        <td class="table__td">PLN/USD</td>
+        <td class="table__td table__td--PLNUSD">0.2200</td>
+        <td class="table__td">GBP/USD</td>
+        <td class="table__td table__td--GBPUSD">1.1911</td>
+        <td class="table__td">CHF/USD</td>
+        <td class="table__td table__td--CHFUSD">1.0701</td>
+      </tr>
+      <tr>
+        <td class="table__td">USD/EUR</td>
+        <td class="table__td table__td--USDEUR">0.9512</td>
+        <td class="table__td">PLN/EUR</td>
+        <td class="table__td table__td--PLNEUR">0.2112</td>
+        <td class="table__td">GBP/EUR</td>
+        <td class="table__td table__td--GBPEUR">1.1334</td>
+        <td class="table__td">CHF/EUR</td>
+        <td class="table__td table__td--CHFEUR">1.0148</td>
+      </tr>
+      <tr>
+        <td class="table__td">USD/GBP</td>
+        <td class="table__td table__td--USDGBP">0.8356</td>
+        <td class="table__td">PLN/GBP</td>
+        <td class="table__td table__td--PLNGBP">0.1886</td>
+        <td class="table__td">EUR/GBP</td>
+        <td class="table__td table__td--EURGBP">0.8802</td>
+        <td class="table__td">CHF/GBP</td>
+        <td class="table__td table__td--CHFGBP">0.8941</td>
+      </tr>
+      <tr>
+        <td class="table__td">USD/CHF</td>
+        <td class="table__td table__td--USDCHF">0.9279</td>
+        <td class="table__td">PLN/CHF</td>
+        <td class="table__td table__td--PLNCHF">0.2134</td>
+        <td class="table__td">EUR/CHF</td>
+        <td class="table__td table__td--EURCHF">0.9935</td>
+        <td class="table__td">GBP/CHF</td>
+        <td class="table__td table__td--GBPCHF">1.1143</td>
+      </tr>
+    </table>
+  </body>
+</html>

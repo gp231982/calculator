@@ -1,0 +1,145 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+}
+
+table {
+  width: 100%;
+  border: 3px solid black;
+  font-size: 24px;
+  font-family: "Lato", sans-serif;
+  border-collapse: collapse;
+}
+
+.table__caption {
+  font-size: 30px;
+  padding: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.table__header {
+  background-color: cadetblue;
+  padding: 10px;
+}
+
+.table__td {
+  padding: 20px;
+
+  border: 1px solid black;
+}
+
+.table__td:hover {
+  cursor: pointer;
+  background-color: grey;
+}
+
+.table__on {
+  outline: 1px double green;
+  background-color: lightgrey;
+  font-weight: bold;
+}
+
+.form {
+  display: block;
+  width: 100%;
+}
+
+.form__result {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.form__fieldset {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.form__header {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: cadetblue;
+}
+
+.form__labelText {
+  margin: 10px;
+  display: inline-block;
+  width: 500px;
+  margin-right: 5px;
+}
+
+.form__ul {
+  list-style: none;
+}
+
+.form li {
+  padding: 20px;
+}
+
+.form__field {
+  width: 400px;
+  padding: 10px;
+  margin-left: 0px;
+  border-radius: 5px;
+  box-shadow: 2px 2px;
+}
+
+.form__field:hover {
+  background-color: lightgray;
+}
+
+.form__field--select:hover {
+  cursor: pointer;
+}
+
+.form__field--select:hover {
+  cursor: pointer;
+}
+
+.form__calculationButton {
+  padding: 10px 40px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  width: 200px;
+  font-weight: bold;
+}
+
+.form__calculationButton:hover {
+  cursor: pointer;
+  border: 3px solid whitesmoke;
+  border-radius: 15px;
+  color: white;
+  background-color: teal;
+}
+
+.form__reset {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 10px 40px;
+  border-radius: 5px;
+  letter-spacing: 2.5px;
+  width: 200px;
+  font-weight: bold;
+}
+
+.form__reset:hover {
+  border: 3px solid whitesmoke;
+  background-color: teal;
+  color: whitesmoke;
+  border-radius: 15px;
+}
