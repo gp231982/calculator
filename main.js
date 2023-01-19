@@ -1,5 +1,5 @@
 let currencyInput = document.querySelector(".js-currency__input");
-let tableCells = document.querySelectorAll(".table__td");
+let tableCells = document.querySelectorAll(".table__cell");
 let currencyRatioInput = document.querySelector(
   ".js-form__field--currencyRatio"
 );
@@ -180,7 +180,7 @@ function currencyRatioInputEvent() {
     tableCell.classList.remove("table__on")
   );
 
-  if (currencyRatioInput.value < 0.0001) {
+  if (currencyRatioInput.value < "-") {
     currencyRatioInput.value = "";
   }
 
@@ -227,4 +227,19 @@ function formValidationAndResultCalculation() {
 calculationButton.addEventListener("click", (e) => {
   e.preventDefault();
   formValidationAndResultCalculation();
+});
+
+const resetFunction = () => {
+  currencyInput.classList.remove("table__on");
+  selectFrom.classList.remove("table__on");
+  selectTo.classList.remove("table__on");
+  currencyRatioInput.classList.remove("table__on");
+
+  tableCellsArray.forEach((tableCell) =>
+    tableCell.classList.remove("table__on")
+  );
+};
+
+resetButton.addEventListener("click", () => {
+  resetFunction()
 });
