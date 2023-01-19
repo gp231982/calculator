@@ -9,18 +9,21 @@ html {
 }
 
 body {
-  width: 100%;
-  max-width: 1200px;
+  width: 80%;
   margin: 0 auto;
   margin-top: 10px;
   font-size: 24px;
   font-family: "Lato", sans-serif;
+  /* overflow-x: auto; */
+  background-color: blanchedalmond;
 }
 
 table {
   width: 100%;
+  margin: 0 auto;
+  margin-bottom: 40px;
   border: 3px solid black;
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Lato", sans-serif;
   border-collapse: collapse;
 }
@@ -37,36 +40,36 @@ table {
   padding: 10px;
 }
 
-.table__td {
+.table__cell {
   padding: 20px;
-
   border: 1px solid black;
 }
 
-.table__td:hover {
+.table__cell:hover {
   cursor: pointer;
-  background-color: grey;
+  background-color: rgb(211, 207, 207);
 }
 
 .table__on {
   outline: 1px double green;
-  background-color: lightgrey;
+  background-color: rgb(218, 226, 224);
   font-weight: bold;
 }
 
 .form {
   display: block;
+}
+
+.form__fieldset {
+  border-radius: 20px;
+  font-size: 20px;
+  margin: 0 auto;
   width: 100%;
 }
 
 .form__result {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-}
-
-.form__fieldset {
-  width: 100%;
-  border-radius: 20px;
 }
 
 .form__header {
@@ -78,12 +81,13 @@ table {
 .form__labelText {
   margin: 10px;
   display: inline-block;
-  width: 500px;
-  margin-right: 5px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .form__ul {
   list-style: none;
+  padding-left: 0;
 }
 
 .form li {
@@ -91,7 +95,8 @@ table {
 }
 
 .form__field {
-  width: 400px;
+  width: 100%;
+  max-width: 500px;
   padding: 10px;
   margin-left: 0px;
   border-radius: 5px;
@@ -99,7 +104,10 @@ table {
 }
 
 .form__field:hover {
-  background-color: lightgray;
+  background-color: #f5e1e1;
+  outline-style: double;
+  outline-width: 5px;
+  outline-offset: 1px;
 }
 
 .form__field--select:hover {
@@ -121,13 +129,13 @@ table {
 
 .form__calculationButton:hover {
   cursor: pointer;
-  border: 3px solid whitesmoke;
+  outline: 3px solid whitesmoke;
   border-radius: 15px;
   color: white;
   background-color: teal;
 }
 
-.form__reset {
+.form__resetButton {
   text-transform: uppercase;
   font-weight: bold;
   padding: 10px 40px;
@@ -137,9 +145,14 @@ table {
   font-weight: bold;
 }
 
-.form__reset:hover {
-  border: 3px solid whitesmoke;
+.form__resetButton:hover {
+  outline: 3px solid whitesmoke;
   background-color: teal;
   color: whitesmoke;
   border-radius: 15px;
+  cursor: pointer;
+}
+
+.container {
+  overflow-x: auto;
 }
