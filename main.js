@@ -1,27 +1,44 @@
-let currencyInput = document.querySelector(".js-currency__input");
-let tableCells = document.querySelectorAll(".table__cell");
-let currencyRatioInput = document.querySelector(
+const currencyInput = document.querySelector(".js-currency__input");
+const tableCells = document.querySelectorAll(".table__cell");
+const currencyRatioInput = document.querySelector(
   ".js-form__field--currencyRatio"
 );
-let calculationButton = document.querySelector(".js-form__calculationButton");
-let selectFrom = document.querySelector(".js-form__field--currencyFrom");
-let selectTo = document.querySelector(".js-form__field--currencyTo");
-let result = document.querySelector(".js-form__result");
-let resetButton = document.querySelector(".js-form__reset");
+const calculationButton = document.querySelector(".js-form__calculationButton");
+const selectFrom = document.querySelector(".js-form__field--currencyFrom");
+const selectTo = document.querySelector(".js-form__field--currencyTo");
+const result = document.querySelector(".js-form__result");
+const resetButton = document.querySelector(".js-form__reset");
 let clickedTableCells = [];
 let clickedPreviousTableCellsSiblings = [];
-let tableCellsArray = [...tableCells];
+const tableCellsArray = [...tableCells];
+const form = document.querySelector(".js-form");
+
+const resetFunction = () => {
+  currencyInput.classList.remove("active");
+  selectFrom.classList.remove("active");
+  selectTo.classList.remove("active");
+  currencyRatioInput.classList.remove("active");
+  tableCellsArray.forEach((tableCell) => tableCell.classList.remove("active"));
+  calculationButton.classList.add("form__calculationButton--disabled");
+  clickedTableCells = [];
+  clickedPreviousTableCellsSiblings = [];
+  result.innerText = "Wynik:";
+};
 
 tableCellsArray.forEach((tableCell) => {
   tableCell.addEventListener("click", (e) => {
-    result.innerText = "N/A";
+    if (isNaN(+tableCell.innerText)) return;
+    resetFunction();
+    if (currencyInput.value) {
+      calculationButton.classList.remove("form__calculationButton--disabled");
+    } else if ((currencyInput.value = "")) {
+      calculationButton.classList.add("form__calculationButton--disabled");
+    }
 
-    function currencyAutoSelection() {
-      let threeFirstLetters = tableCell.previousElementSibling.innerText.slice(
-        0,
-        3
-      );
-      let threeLastLetters =
+    const currencyAutoSelection = () => {
+      const threeFirstLetters =
+        tableCell.previousElementSibling.innerText.slice(0, 3);
+      const threeLastLetters =
         tableCell.previousElementSibling.innerText.slice(-3);
       switch (threeFirstLetters) {
         case "EUR":
@@ -61,9 +78,7 @@ tableCellsArray.forEach((tableCell) => {
         default:
           break;
       }
-    }
-
-    currencyAutoSelection();
+    };
 
     if (+e.target.innerText > 0) {
       currencyRatioInput.value = (+e.target.innerText).toFixed(4);
@@ -73,85 +88,76 @@ tableCellsArray.forEach((tableCell) => {
       (+tableCell.innerText).toFixed(4) ===
       (+currencyRatioInput.value).toFixed(4)
     ) {
-      if (tableCell.classList.contains("table__on")) {
+      if (tableCell.classList.contains("active")) {
         return;
       }
 
       if (
-        !tableCell.classList.contains("table__on") &&
-        !tableCell.previousElementSibling.classList.contains("table__on")
+        !tableCell.classList.contains("active") &&
+        !tableCell.previousElementSibling.classList.contains("active")
       ) {
-        selectFrom.classList.add("table__on");
-        selectTo.classList.add("table__on");
-        currencyRatioInput.classList.add("table__on");
+        selectFrom.classList.add("active");
+        selectTo.classList.add("active");
+        currencyRatioInput.classList.add("active");
 
         clickedTableCells.push(tableCell);
         clickedPreviousTableCellsSiblings.push(
           tableCell.previousElementSibling
         );
-        tableCell.classList.add("table__on");
-        tableCell.previousElementSibling.classList.add("table__on");
+        tableCell.classList.add("active");
+        tableCell.previousElementSibling.classList.add("active");
         if (
           clickedTableCells.length === 2 &&
           clickedPreviousTableCellsSiblings.length === 2
         ) {
-          clickedTableCells[0].classList.remove("table__on");
-          clickedPreviousTableCellsSiblings[0].classList.remove("table__on");
+          clickedTableCells[0].classList.remove("active");
+          clickedPreviousTableCellsSiblings[0].classList.remove("active");
           clickedTableCells.shift();
           clickedPreviousTableCellsSiblings.shift();
         }
       }
+
+      if (currencyInput.value) {
+        currencyInput.classList.add("active");
+      }
     }
+
+    currencyAutoSelection();
   });
 });
 
-function currencyInputEvent() {
+const currencyInputEvent = () => {
   if (currencyInput.value < 1) {
     currencyInput.value = "";
   }
-
   currencyInput.value !== ""
-    ? currencyInput.classList.add("table__on")
-    : currencyInput.classList.remove("table__on");
-}
+    ? currencyInput.classList.add("active")
+    : currencyInput.classList.remove("active");
+};
 
-currencyInput.addEventListener("input", () => {
-  currencyInputEvent();
-});
-
-function selectFromEvent() {
-  tableCellsArray.forEach((tableCell) =>
-    tableCell.classList.remove("table__on")
-  );
+const selectFromEvent = () => {
+  tableCellsArray.forEach((tableCell) => tableCell.classList.remove("active"));
 
   clickedTableCells.length = 0;
   clickedPreviousTableCellsSiblings.length = 0;
 
-  console.log(selectFrom.value);
   switch (selectFrom.value) {
     case "PLN":
     case "USD":
     case "GBP":
     case "EUR":
     case "CHF":
-      selectFrom.classList.add("table__on");
+      selectFrom.classList.add("active");
       break;
     case "":
-      selectFrom.classList.remove("table__on");
+      selectFrom.classList.remove("active");
     default:
       break;
   }
-  console.log(selectFrom);
-}
+};
 
-selectFrom.addEventListener("input", () => {
-  selectFromEvent();
-});
-
-function selectToEvent() {
-  tableCellsArray.forEach((tableCell) =>
-    tableCell.classList.remove("table__on")
-  );
+const selectToEvent = () => {
+  tableCellsArray.forEach((tableCell) => tableCell.classList.remove("active"));
 
   clickedTableCells.length = 0;
   clickedPreviousTableCellsSiblings.length = 0;
@@ -162,84 +168,92 @@ function selectToEvent() {
     case "GBP":
     case "EUR":
     case "CHF":
-      selectTo.classList.add("table__on");
+      selectTo.classList.add("active");
       break;
     case "":
-      selectTo.classList.remove("table__on");
+      selectTo.classList.remove("active");
     default:
       break;
   }
-}
+};
+
+const calculateAndDisplayResult = () => {
+  result.innerText = `Wynik: Za ${currencyInput.value} ${
+    selectFrom.value
+  } kupisz ${(currencyInput.value * currencyRatioInput.value).toFixed(2)} ${
+    selectTo.value
+  } `;
+};
+
+currencyInput.addEventListener("input", () => {
+  currencyInputEvent();
+});
+
+selectFrom.addEventListener("input", () => {
+  selectFromEvent();
+});
 
 selectTo.addEventListener("input", () => {
   selectToEvent();
 });
 
-function currencyRatioInputEvent() {
-  tableCellsArray.forEach((tableCell) =>
-    tableCell.classList.remove("table__on")
-  );
-
-  if (currencyRatioInput.value < "-") {
-    currencyRatioInput.value = "";
-  }
-
-  clickedTableCells.length = 0;
-  clickedPreviousTableCellsSiblings.length = 0;
-
-  currencyRatioInput.value !== ""
-    ? currencyRatioInput.classList.add("table__on")
-    : currencyRatioInput.classList.remove("table__on");
-}
-
-currencyRatioInput.addEventListener("input", () => {
-  currencyRatioInputEvent();
-});
-
-function formValidationAndResultCalculation() {
-  if (
-    (selectFrom.value === "" ||
-      selectTo.value === "" ||
-      currencyInput.value === "" ||
-      currencyRatioInput.value === "") &&
-    selectFrom.value !== selectTo.value
-  ) {
-    result.innerText = "Uzupełnij brakujące pola";
-  } else if (
-    (selectFrom.value === "" ||
-      selectTo.value === "" ||
-      currencyInput.value === "" ||
-      currencyRatioInput.value === "") &&
-    selectFrom.value === selectTo.value
-  ) {
-    result.innerText =
-      "Uzupełnij brakujące pola oraz wybierz dwie inne waluty!";
-  } else if (selectFrom.value === selectTo.value) {
-    result.innerText = "Wybierz dwie inne waluty!";
-  } else
-    result.innerText = `Wynik: Za ${currencyInput.value} ${
-      selectFrom.value
-    } kupisz ${(currencyInput.value * currencyRatioInput.value).toFixed(2)} ${
-      selectTo.value
-    } `;
-}
-
 calculationButton.addEventListener("click", (e) => {
   e.preventDefault();
-  formValidationAndResultCalculation();
+  calculateAndDisplayResult();
 });
 
-const resetFunction = () => {
-  currencyInput.classList.remove("table__on");
-  selectFrom.classList.remove("table__on");
-  selectTo.classList.remove("table__on");
-  currencyRatioInput.classList.remove("table__on");
-
-  tableCellsArray.forEach((tableCell) =>
-    tableCell.classList.remove("table__on")
-  );
-};
-
 resetButton.addEventListener("click", () => {
-  resetFunction()
+  resetFunction();
+});
+
+form.addEventListener("input", () => {
+  const activateTableCells = () => {
+    if (
+      selectFrom.value &&
+      selectTo.value &&
+      selectFrom.value !== selectTo.value
+    ) {
+      const combinedValues = `${selectFrom.value}/${selectTo.value}`;
+      console.log(combinedValues);
+      const filteredCell = tableCellsArray.filter((tableCell) => {
+        return tableCell.innerText === combinedValues;
+      });
+      console.log(filteredCell[0].innerText);
+      if (combinedValues === filteredCell[0].innerText) {
+        filteredCell[0].classList.add("active");
+        filteredCell[0].nextElementSibling.classList.add("active");
+      }
+
+      currencyRatioInput.value = filteredCell[0].nextElementSibling.innerText;
+      currencyRatioInput.classList.add("active");
+    } else if (
+      selectFrom.value &&
+      selectTo.value &&
+      selectFrom.value === selectTo.value
+    ) {
+      const fixedValue = 1;
+      currencyRatioInput.value = fixedValue.toFixed(4);
+      currencyRatioInput.classList.add("active");
+    }
+  };
+
+  const validateCalculationButton = () => {
+    if (
+      currencyInput.value &&
+      selectFrom.value &&
+      selectTo.value &&
+      currencyRatioInput.value
+    ) {
+      calculationButton.classList.remove("form__calculationButton--disabled");
+    } else if (
+      !currencyInput.value ||
+      !selectFrom.value ||
+      !selectTo.value ||
+      !currencyRatioInput.value
+    )
+      calculationButton.classList.add("form__calculationButton--disabled");
+  };
+
+  activateTableCells();
+  validateCalculationButton();
 });

@@ -22,7 +22,7 @@
     <title>Kalkulator walut</title>
   </head>
   <body>
-    <form class="form" action="">
+    <form class="form js-form" action="">
       <fieldset class="form__fieldset">
         <legend><h2 class="form__header">Kalkulator walut</h2></legend>
         <h3>Wymagana pola zazanczone są z "*"</h3>
@@ -84,7 +84,7 @@
           <li>
             <label for="currencyRatio">
               <span class="form__labelText"
-                >Wybierz aktualny kurs (z tabeli lub wpisz )*</span
+                >Wybierz aktualny kurs (z tabeli )*</span
               >
               <input
                 class="form__field js-form__field--currencyRatio"
@@ -94,17 +94,18 @@
                 step="0.0001"
                 required
                 min="0.0001"
-                placeholder="Wpisz lub wybierz kurs z tabeli"
+                readonly
+                placeholder="wybierz kurs z tabeli kursów walut"
               />
             </label>
           </li>
         </ul>
         <input
-          class="form__calculationButton js-form__calculationButton"
+          class="form__calculationButton form__calculationButton--disabled js-form__calculationButton"
           type="submit"
           value="Oblicz"
         />
-        <p class="form__result js-form__result"></p>
+        <p class="form__result js-form__result">Wynik:</p>
         <button type="reset" href="#" class="form__resetButton js-form__reset">
           Reset
         </button>

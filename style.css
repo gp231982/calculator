@@ -14,7 +14,6 @@ body {
   margin-top: 10px;
   font-size: 24px;
   font-family: "Lato", sans-serif;
-  /* overflow-x: auto; */
   background-color: blanchedalmond;
 }
 
@@ -50,7 +49,7 @@ table {
   background-color: rgb(211, 207, 207);
 }
 
-.table__on {
+.active {
   outline: 1px double green;
   background-color: rgb(218, 226, 224);
   font-weight: bold;
@@ -68,7 +67,7 @@ table {
 }
 
 .form__result {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -133,6 +132,11 @@ table {
   border-radius: 15px;
   color: white;
   background-color: teal;
+}
+
+.form__calculationButton--disabled {
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 .form__resetButton {
