@@ -186,39 +186,47 @@
     } kupisz ${calculateResult()} ${selectTo.value} `;
   };
 
-  tableCellsArray.forEach((tableCell) => {
-    tableCell.addEventListener("click", (e) => {
-      if (isNaN(+tableCell.innerText)) return;
-      currencyAutoSelection(tableCell);
-      currencyRatioInput.value = (+e.target.innerText).toFixed(4);
-      resetFunction();
-      validateCalculationButton();
-      selectFrom.classList.add("active");
-      selectTo.classList.add("active");
-      currencyRatioInput.classList.add("active");
-      tableCell.classList.add("active");
-      tableCell.previousElementSibling.classList.add("active");
-      if (currencyInput.value) {
-        currencyInput.classList.add("active");
-      }
-    });
-  });
-
-  currencyInput.addEventListener("input", currencyInputEvent);
-
-  selectFrom.addEventListener("input", selectFromEvent);
-
-  selectTo.addEventListener("input", selectToEvent);
-
-  calculationButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    presentResult();
-  });
-
-  resetButton.addEventListener("click", resetFunction);
-
-  form.addEventListener("input", () => {
-    activateTableCells();
+  const clickTableCell = (tableCell) => {
+    if (isNaN(+tableCell.innerText)) return;
+    currencyAutoSelection(tableCell);
+    currencyRatioInput.value = (+tableCell.innerText).toFixed(4);
+    resetFunction();
     validateCalculationButton();
-  });
+    selectFrom.classList.add("active");
+    selectTo.classList.add("active");
+    currencyRatioInput.classList.add("active");
+    tableCell.classList.add("active");
+    tableCell.previousElementSibling.classList.add("active");
+    if (currencyInput.value) {
+      currencyInput.classList.add("active");
+    }
+  };
+
+  const init = () => {
+    currencyInput.addEventListener("input", currencyInputEvent);
+
+    selectFrom.addEventListener("input", selectFromEvent);
+
+    selectTo.addEventListener("input", selectToEvent);
+
+    calculationButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      presentResult();
+    });
+
+    resetButton.addEventListener("click", resetFunction);
+
+    form.addEventListener("input", () => {
+      activateTableCells();
+      validateCalculationButton();
+    });
+
+    tableCellsArray.forEach((tableCell) => {
+      tableCell.addEventListener("click", () => {
+        clickTableCell(tableCell);
+      });
+    });
+  };
+
+  init();
 }
