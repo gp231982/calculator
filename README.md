@@ -7,6 +7,9 @@ After choosing the proper values one must press calculation button to display th
 Calculation button is active only if all form fields are chosen. 
 There is also reset button to reset calculation button, form fields and table cells. Please take a look at demo.
 
+## Link
+https://gp231982.github.io/calculator/
+
 ## Demo
 https://user-images.githubusercontent.com/68773588/215883162-2aff1474-0d31-4002-a4cc-42e954022918.mp4
 
